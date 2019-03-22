@@ -30,6 +30,7 @@ class Api::DepartmentsController < ApplicationController
 
   def destroy
     @department.destroy
+    render json: { message: 'Item Deleted'}
   end
 
   private

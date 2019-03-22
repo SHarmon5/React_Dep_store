@@ -3,17 +3,36 @@ import { Form, Header, } from "semantic-ui-react";
 import axios from 'axios';
 
 class DepartsForm extends React.Component {
-  defaultValues = { name: "", };
-  state = { ...this.defaultValues, };
+  state = { name: "", };
+
+  componentDidMount() {
+    const { match: { params: { id } } } = this.props
+    if (id)
+      axios.get(`/api/departments/${id}`)
+        .then(res => {
+          this.setState({ name: res.data.name })
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+  }
+
 
   handleSubmit = (e) => {
     e.preventDefault();
     const department = { ...this.state, };
-    axios.post('/api/departments', department)
+    const { match: { params: { id } } } = this.props
+    if (id) {
+      axios.put(`/api/departments/${id}`, department)
       .then( res => {
-        this.props.history.push("/departments");
+        this.props.history.push(`/departments/${id}`);
       })
-    this.setState({ ...this.defaultValues, });
+    } else {
+      axios.post(`/api/departments`, department)
+        .then(res => {
+          this.props.history.push('/departments')
+        })
+    }
   }
 
   handleChange = (e) => {
@@ -26,7 +45,6 @@ class DepartsForm extends React.Component {
 
     return (
       <div>
-        <Header as="h1">New Department</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths="equal">
             <Form.Input

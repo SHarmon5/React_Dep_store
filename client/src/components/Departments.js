@@ -13,6 +13,14 @@ class Departments extends React.Component {
       })
   }
 
+  deleteDepartment = (id) => {
+    axios.delete(`/api/departments/${id}`)
+     .then( res => {
+       const { departments, } = this.state;
+       this.setState({ departments: departments.filter(d => d.id !== id), })
+  })
+  }
+
   renderDeparts = () => {
     const { departments, } = this.state;
 
@@ -27,10 +35,13 @@ class Departments extends React.Component {
         <Button as={Link} to={`/departments/${department.id}`} color="blue">
           View Department
         </Button>
+        <Button onClick={() => this.deleteDepartment(department.id)}>Delete</Button>
         </Card.Content>
       </Card>
     ))
   }
+
+  
 
   render() {
     return (
