@@ -27,7 +27,7 @@ class ItemsForm extends React.Component {
     if (id && department_id) {
     axios.put(`/api/departments/${department_id}/items/${id}`, item)
       .then( res => {
-        this.props.history.push(`/departments/${department_id}/items`);
+        this.props.history.push(`/departments/${department_id}/items/${id}`);
       })
     } else {
       axios.post(`/api/departments/${department_id}/items`, item)
@@ -48,7 +48,6 @@ class ItemsForm extends React.Component {
 
     return (
       <div>
-        <Header as="h1">New Item</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths="equal">
             <Form.Input

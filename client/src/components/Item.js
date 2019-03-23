@@ -4,7 +4,7 @@ import { Link, } from 'react-router-dom';
 import { Button, Container, Image, } from 'semantic-ui-react';
 
 class Item extends React.Component {
-  state = { item: {} }
+  state = { item: [] }
 
   componentDidMount() {
     const { match: { params: { id, department_id } } } = this.props
@@ -28,7 +28,7 @@ class Item extends React.Component {
   render() {
     const { match: { params: { id, department_id } } } = this.props
     const { name, description, price } = this.state.item
-    return (
+    return ( 
       <Container style={{ marginBottom: '40px' }}>
           <Button as={Link} to={`/departments/${department_id}`} color='black'>
             Go Back

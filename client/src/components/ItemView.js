@@ -10,7 +10,7 @@ class ItemView extends React.Component {
   componentDidMount() {
     axios.get(`/api/departments/${this.props.match.params.department_id}/items`)
       .then( res => {
-        this.setState({ items: res.data, });debugger
+        this.setState({ items: res.data, });
       })
   }
 
